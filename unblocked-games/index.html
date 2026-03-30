@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unblocked Games Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .games-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .game-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+
+        .game-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .game-description {
+            font-size: 0.95em;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .play-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .play-btn:hover {
+            background: #45a049;
+        }
+
+        .game-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .game-modal.active {
+            display: flex;
+        }
+
+        .game-frame {
+            width: 90%;
+            height: 80%;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 3em;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .close-btn:hover {
+            color: #ff4444;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            margin-top: 40px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎮 Unblocked Games Hub</h1>
+        <p class="subtitle">Play classic games anytime, anywhere!</p>
+    </header>
+
+    <div class="games-container">
+        <div class="game-card" onclick="openGame('snake')">
+            <div class="game-icon">🐍</div>
+            <div class="game-title">Snake</div>
+            <div class="game-description">Classic snake game! Eat the food to grow longer, but don't hit the walls or yourself.</div>
+            <button class="play-btn">Play Now</button>
+        </div>
+
+        <div class="game-card" onclick="openGame('pong')">
+            <div class="game-icon">🏓</div>
+            <div class="game-title">Pong</div>
+            <div class="game-description">The original tennis game! Control your paddle and beat the computer.</div>
+            <button class="play-btn">Play Now</button>
+        </div>
+
+        <div class="game-card" onclick="openGame('breakout')">
+            <div class="game-icon">🧱</div>
+            <div class="game-title">Breakout</div>
+            <div class="game-description">Break all the bricks with your ball! Don't let it fall below your paddle.</div>
+            <button class="play-btn">Play Now</button>
+        </div>
+
+        <div class="game-card" onclick="openGame('tictactoe')">
+            <div class="game-icon">⭕</div>
+            <div class="game-title">Tic Tac Toe</div>
+            <div class="game-description">Classic X's and O's! Get three in a row to win against the computer.</div>
+            <button class="play-btn">Play Now</button>
+        </div>
+
+        <div class="game-card" onclick="openGame('memory')">
+            <div class="game-icon">🃏</div>
+            <div class="game-title">Memory Game</div>
+            <div class="game-description">Test your memory! Find matching pairs of cards in the fewest moves.</div>
+            <button class="play-btn">Play Now</button>
+        </div>
+
+        <div class="game-card" onclick="openGame('clicker')">
+            <div class="game-icon">🖱️</div>
+            <div class="game-title">Clicker Game</div>
+            <div class="game-description">Click as fast as you can! See how many clicks you can get in 30 seconds.</div>
+            <button class="play-btn">Play Now</button>
+        </div>
+    </div>
+
+    <div class="game-modal" id="gameModal">
+        <button class="close-btn" onclick="closeGame()">&times;</button>
+        <div class="game-frame" id="gameFrame"></div>
+    </div>
+
+    <footer>
+        <p>© 2024 Unblocked Games Hub | All games run locally in your browser</p>
+    </footer>
+
+    <script src="games.js"></script>
+</body>
+</html>
