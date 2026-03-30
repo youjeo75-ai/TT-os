@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play Game - PlayZone</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container navbar-content">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🎮</span>
+        <span>PlayZone</span>
+      </a>
+      
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="searchInput" placeholder="Search games...">
+      </div>
+      
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="favorites.html">Favorites</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+      
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+    </div>
+  </nav>
+
+  <!-- Game Player -->
+  <div class="container player-container">
+    <div class="player-header">
+      <a href="games.html" class="back-btn">
+        ← Back to Games
+      </a>
+      <div style="display: flex; gap: 1rem;">
+        <button class="btn btn-secondary" id="fullscreenBtn">
+          ⛶ Fullscreen
+        </button>
+        <button class="btn btn-favorite" id="favoriteBtn">
+          ☆
+        </button>
+      </div>
+    </div>
+    
+    <div class="game-frame-container">
+      <div class="loading-screen" id="loadingScreen">
+        <div class="spinner"></div>
+        <p style="margin-top: 1rem; color: var(--text-secondary);">Loading game...</p>
+      </div>
+      <iframe id="gameFrame" class="game-frame" src="" title="Game Frame" sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-forms"></iframe>
+    </div>
+    
+    <div class="game-details fade-in">
+      <h2 id="gameTitle">Game Title</h2>
+      <span class="game-category" id="gameCategory">Category</span>
+      <p id="gameDescription" style="margin-top: 1rem; color: var(--text-secondary); line-height: 1.8;"></p>
+      
+      <div class="game-meta" style="margin-top: 1.5rem;">
+        <div class="game-rating" id="gameRating">
+          <span>⭐</span>
+          <span id="ratingValue">0.0</span>
+          <span>(<span id="ratingCount">0</span> ratings)</span>
+        </div>
+        <div class="game-plays" id="gamePlays">
+          ▶️ 0 plays
+        </div>
+      </div>
+      
+      <div class="controls-info" id="controlsInfo">
+        <h3>🎯 Controls</h3>
+        <p id="gameControls" style="color: var(--text-secondary); margin-top: 0.5rem;"></p>
+      </div>
+      
+      <div class="game-tags" id="gameTags" style="margin-top: 1.5rem;">
+        <!-- Tags loaded dynamically -->
+      </div>
+      
+      <!-- Rating Section -->
+      <div style="margin-top: 2rem;">
+        <h3>Rate this game:</h3>
+        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+          <button class="btn btn-secondary rate-btn" data-rating="1">⭐</button>
+          <button class="btn btn-secondary rate-btn" data-rating="2">⭐⭐</button>
+          <button class="btn btn-secondary rate-btn" data-rating="3">⭐⭐⭐</button>
+          <button class="btn btn-secondary rate-btn" data-rating="4">⭐⭐⭐⭐</button>
+          <button class="btn btn-secondary rate-btn" data-rating="5">⭐⭐⭐⭐⭐</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>🎮 PlayZone</h4>
+          <p>The best unblocked games portal.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="index.html">Home</a>
+          <a href="games.html">All Games</a>
+          <a href="favorites.html">Favorites</a>
+        </div>
+        <div class="footer-section">
+          <h4>Categories</h4>
+          <a href="games.html?category=Sandbox">Sandbox</a>
+          <a href="games.html?category=Platformer">Platformer</a>
+          <a href="games.html?category=Action">Action</a>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <p>© 2024 PlayZone. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../components/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const app = new PlayZoneApp();
+      
+      // Get game ID from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const gameId = urlParams.get('id');
+      
+      if (!gameId) {
+        window.location.href = 'games.html';
+        return;
+      }
+      
+      // Load game
+      await app.loadGamePlayer(gameId);
+      
+      // Fullscreen functionality
+      document.getElementById('fullscreenBtn').addEventListener('click', () => {
+        const container = document.querySelector('.game-frame-container');
+        if (!document.fullscreenElement) {
+          container.requestFullscreen().catch(err => {
+            console.error('Error attempting to enable fullscreen:', err);
+          });
+        } else {
+          document.exitFullscreen();
+        }
+      });
+      
+      // Rating buttons
+      document.querySelectorAll('.rate-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          const rating = e.target.dataset.rating;
+          await app.rateGame(gameId, rating);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
