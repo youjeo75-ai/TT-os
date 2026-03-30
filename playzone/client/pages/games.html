@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Games - PlayZone</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container navbar-content">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🎮</span>
+        <span>PlayZone</span>
+      </a>
+      
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="searchInput" placeholder="Search games...">
+      </div>
+      
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="games.html" class="active">Games</a></li>
+        <li><a href="favorites.html">Favorites</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+      
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container player-container">
+    <h1 class="section-title">🎮 All Games</h1>
+    
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <select class="sort-select" id="categoryFilter">
+        <option value="All">All Categories</option>
+        <option value="Sandbox">Sandbox</option>
+        <option value="Platformer">Platformer</option>
+        <option value="Action">Action</option>
+        <option value="Puzzle">Puzzle</option>
+        <option value="Racing">Racing</option>
+        <option value="Multiplayer">Multiplayer</option>
+        <option value="Retro">Retro</option>
+        <option value="Adventure">Adventure</option>
+      </select>
+      
+      <select class="sort-select" id="sortSelect">
+        <option value="newest">Newest First</option>
+        <option value="popular">Most Popular</option>
+        <option value="rating">Highest Rated</option>
+      </select>
+      
+      <div class="search-container" style="max-width: 300px;">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="gameSearch" placeholder="Search..." style="padding-left: 2.5rem;">
+      </div>
+    </div>
+    
+    <!-- Games Grid -->
+    <div class="games-grid" id="allGamesGrid">
+      <!-- Games loaded dynamically -->
+    </div>
+    
+    <!-- Pagination -->
+    <div class="pagination" id="pagination">
+      <!-- Pagination buttons loaded dynamically -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>🎮 PlayZone</h4>
+          <p>The best unblocked games portal.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="index.html">Home</a>
+          <a href="games.html">All Games</a>
+          <a href="favorites.html">Favorites</a>
+        </div>
+        <div class="footer-section">
+          <h4>Categories</h4>
+          <a href="games.html?category=Sandbox">Sandbox</a>
+          <a href="games.html?category=Platformer">Platformer</a>
+          <a href="games.html?category=Action">Action</a>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <p>© 2024 PlayZone. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../components/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const app = new PlayZoneApp();
+      
+      // Get URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialCategory = urlParams.get('category') || 'All';
+      
+      // Set initial category filter
+      document.getElementById('categoryFilter').value = initialCategory;
+      
+      // Load all games with filters
+      await app.loadAllGames();
+      
+      // Event listeners for filters
+      document.getElementById('categoryFilter').addEventListener('change', () => {
+        app.currentPage = 1;
+        app.loadAllGames();
+      });
+      
+      document.getElementById('sortSelect').addEventListener('change', () => {
+        app.currentPage = 1;
+        app.loadAllGames();
+      });
+      
+      // Search functionality
+      let searchTimeout;
+      document.getElementById('gameSearch').addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          app.currentPage = 1;
+          app.loadAllGames();
+        }, 300);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlayZone - Unblocked Games Portal</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container navbar-content">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🎮</span>
+        <span>PlayZone</span>
+      </a>
+      
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="searchInput" placeholder="Search games...">
+      </div>
+      
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="favorites.html">Favorites</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+      
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Welcome to PlayZone</h1>
+      <p>Your ultimate destination for unblocked browser games. Play anytime, anywhere!</p>
+    </div>
+  </section>
+
+  <!-- Featured Game Banner -->
+  <div class="container">
+    <div class="featured-banner fade-in" id="featuredBanner">
+      <div class="featured-content">
+        <h2 id="featuredTitle">Featured Game</h2>
+        <p id="featuredDescription">Discover amazing games and start playing instantly!</p>
+        <a href="#" class="btn btn-primary" id="featuredPlayBtn">
+          ▶️ Play Now
+        </a>
+      </div>
+      <img src="https://picsum.photos/seed/featured/600/400" alt="Featured Game" class="featured-image" id="featuredImage">
+    </div>
+  </div>
+
+  <!-- Categories Section -->
+  <section class="categories-section">
+    <div class="container">
+      <h2 class="section-title">📁 Browse by Category</h2>
+      <div class="categories-grid" id="categoriesGrid">
+        <div class="category-card active" data-category="All">
+          <div class="category-icon">🎯</div>
+          <div class="category-name">All Games</div>
+        </div>
+        <div class="category-card" data-category="Sandbox">
+          <div class="category-icon">🏗️</div>
+          <div class="category-name">Sandbox</div>
+        </div>
+        <div class="category-card" data-category="Platformer">
+          <div class="category-icon">🏃</div>
+          <div class="category-name">Platformer</div>
+        </div>
+        <div class="category-card" data-category="Action">
+          <div class="category-icon">⚔️</div>
+          <div class="category-name">Action</div>
+        </div>
+        <div class="category-card" data-category="Puzzle">
+          <div class="category-icon">🧩</div>
+          <div class="category-name">Puzzle</div>
+        </div>
+        <div class="category-card" data-category="Racing">
+          <div class="category-icon">🏎️</div>
+          <div class="category-name">Racing</div>
+        </div>
+        <div class="category-card" data-category="Adventure">
+          <div class="category-icon">🗺️</div>
+          <div class="category-name">Adventure</div>
+        </div>
+        <div class="category-card" data-category="Retro">
+          <div class="category-icon">🕹️</div>
+          <div class="category-name">Retro</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Games Section -->
+  <section class="games-section">
+    <div class="container">
+      <h2 class="section-title">🔥 Popular Games</h2>
+      <div class="games-grid" id="popularGamesGrid">
+        <!-- Games will be loaded dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- New Games Section -->
+  <section class="games-section">
+    <div class="container">
+      <h2 class="section-title">✨ New Releases</h2>
+      <div class="games-grid" id="newGamesGrid">
+        <!-- Games will be loaded dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Recently Played Section -->
+  <section class="games-section">
+    <div class="container">
+      <h2 class="section-title">🕐 Recently Played</h2>
+      <div class="games-grid" id="recentlyPlayedGrid">
+        <p style="color: var(--text-secondary);">Start playing games to see them here!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>🎮 PlayZone</h4>
+          <p>The best unblocked games portal. Play your favorite browser games anytime, anywhere!</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="index.html">Home</a>
+          <a href="games.html">All Games</a>
+          <a href="favorites.html">Favorites</a>
+          <a href="admin.html">Admin Panel</a>
+        </div>
+        <div class="footer-section">
+          <h4>Categories</h4>
+          <a href="games.html?category=Sandbox">Sandbox</a>
+          <a href="games.html?category=Platformer">Platformer</a>
+          <a href="games.html?category=Action">Action</a>
+          <a href="games.html?category=Puzzle">Puzzle</a>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <p>Email: support@playzone.com</p>
+          <p>© 2024 PlayZone. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../components/app.js"></script>
+  <script>
+    // Homepage specific functionality
+    document.addEventListener('DOMContentLoaded', async () => {
+      const app = new PlayZoneApp();
+      
+      // Load featured game
+      await app.loadFeaturedGame();
+      
+      // Load popular games (sorted by plays)
+      await app.loadGames('popularGamesGrid', { sort: 'popular', limit: 4 });
+      
+      // Load new games (sorted by newest)
+      await app.loadGames('newGamesGrid', { sort: 'newest', limit: 4 });
+      
+      // Load recently played from localStorage
+      app.loadRecentlyPlayed();
+      
+      // Category filter navigation
+      document.querySelectorAll('.category-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const category = card.dataset.category;
+          window.location.href = `games.html?category=${category}`;
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - PlayZone</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container navbar-content">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🎮</span>
+        <span>PlayZone</span>
+      </a>
+      
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="searchInput" placeholder="Search games...">
+      </div>
+      
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="favorites.html">Favorites</a></li>
+        <li><a href="admin.html" class="active">Admin</a></li>
+      </ul>
+      
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+    </div>
+  </nav>
+
+  <!-- Admin Panel -->
+  <div class="container admin-panel">
+    <h1 class="section-title">⚙️ Admin Panel</h1>
+    
+    <!-- Add/Edit Game Form -->
+    <div class="admin-form fade-in">
+      <h2 style="margin-bottom: 1.5rem;" id="formTitle">➕ Add New Game</h2>
+      <form id="gameForm">
+        <input type="hidden" id="editGameId">
+        
+        <div class="form-group">
+          <label for="title">Game Title *</label>
+          <input type="text" id="title" class="form-control" required placeholder="Enter game title">
+        </div>
+        
+        <div class="form-group">
+          <label for="description">Description *</label>
+          <textarea id="description" class="form-control" required placeholder="Describe the game..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="thumbnail">Thumbnail URL *</label>
+          <input type="url" id="thumbnail" class="form-control" required placeholder="https://example.com/image.jpg">
+        </div>
+        
+        <div class="form-group">
+          <label for="category">Category *</label>
+          <select id="category" class="form-control" required>
+            <option value="">Select Category</option>
+            <option value="Sandbox">Sandbox</option>
+            <option value="Platformer">Platformer</option>
+            <option value="Action">Action</option>
+            <option value="Puzzle">Puzzle</option>
+            <option value="Racing">Racing</option>
+            <option value="Multiplayer">Multiplayer</option>
+            <option value="Retro">Retro</option>
+            <option value="Adventure">Adventure</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="gameUrl">Game URL *</label>
+          <input type="url" id="gameUrl" class="form-control" required placeholder="https://example.com/game or /client/games/game.html">
+        </div>
+        
+        <div class="form-group">
+          <label for="gameType">Game Type *</label>
+          <select id="gameType" class="form-control" required>
+            <option value="iframe">iFrame Embed</option>
+            <option value="html5">HTML5 Game</option>
+            <option value="webgl">WebGL Game</option>
+            <option value="external">External URL</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="controls">Controls Instructions</label>
+          <textarea id="controls" class="form-control" placeholder="WASD to move, Space to jump..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="tags">Tags (comma separated)</label>
+          <input type="text" id="tags" class="form-control" placeholder="action, adventure, multiplayer">
+        </div>
+        
+        <div class="form-group">
+          <label style="display: flex; align-items: center; gap: 0.5rem;">
+            <input type="checkbox" id="featured" style="width: auto;">
+            Featured Game
+          </label>
+        </div>
+        
+        <div style="display: flex; gap: 1rem;">
+          <button type="submit" class="btn btn-primary">
+            💾 Save Game
+          </button>
+          <button type="button" class="btn btn-secondary" id="cancelEdit" style="display: none;">
+            ❌ Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+    
+    <!-- Games Management -->
+    <div class="admin-form fade-in">
+      <h2 style="margin-bottom: 1.5rem;">📋 Manage Games</h2>
+      
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="background: var(--bg-hover); text-align: left;">
+              <th style="padding: 1rem;">Thumbnail</th>
+              <th style="padding: 1rem;">Title</th>
+              <th style="padding: 1rem;">Category</th>
+              <th style="padding: 1rem;">Plays</th>
+              <th style="padding: 1rem;">Rating</th>
+              <th style="padding: 1rem;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="gamesTableBody">
+            <!-- Games loaded dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>🎮 PlayZone</h4>
+          <p>The best unblocked games portal.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="index.html">Home</a>
+          <a href="games.html">All Games</a>
+          <a href="favorites.html">Favorites</a>
+        </div>
+        <div class="footer-section">
+          <h4>Categories</h4>
+          <a href="games.html?category=Sandbox">Sandbox</a>
+          <a href="games.html?category=Platformer">Platformer</a>
+          <a href="games.html?category=Action">Action</a>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <p>© 2024 PlayZone. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../components/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const app = new PlayZoneApp();
+      await app.loadAdminGames();
+      
+      // Form submission
+      document.getElementById('gameForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await app.saveGame();
+      });
+      
+      // Cancel edit
+      document.getElementById('cancelEdit').addEventListener('click', () => {
+        app.resetForm();
+      });
+    });
+  </script>
+</body>
+</html>
