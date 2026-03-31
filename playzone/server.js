@@ -35,7 +35,7 @@ app.use(compression());
 
 // Static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/client', express.static(path.join(__dirname, '../client')));
+app.use('/client', express.static(path.join(__dirname, 'client')));
 
 // API routes
 app.use('/api/games', gameRoutes);
@@ -49,9 +49,25 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Serve frontend
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/pages/index.html'));
+// Serve frontend pages
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/pages/index.html'));
+});
+
+app.get('/games', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/pages/games.html'));
+});
+
+app.get('/player', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/pages/player.html'));
+});
+
+app.get('/favorites', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/pages/favorites.html'));
+});
+
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/pages/admin.html'));
 });
 
 // Error handling middleware
